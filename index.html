@@ -71,7 +71,7 @@
       --transition:  .25s ease;
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
     body {
       font-family: 'Segoe UI', system-ui, sans-serif;
@@ -79,6 +79,11 @@
       color: var(--text);
       line-height: 1.75;
       display: flex;
+    }
+
+    /* ── Touch & tap ── */
+    button, .tab-btn, .section-header, a, .future-chip {
+      -webkit-tap-highlight-color: transparent;
     }
 
     /* ── Sidebar ── */
@@ -114,6 +119,24 @@
     }
 
     .sidebar-header p { font-size: .82rem; opacity: .75; }
+
+    #lang-toggle {
+      margin-top: 10px;
+      padding: 5px 18px;
+      border: 1.5px solid var(--accent);
+      border-radius: 14px;
+      background: transparent;
+      color: var(--accent);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      cursor: pointer;
+      transition: background var(--transition), color var(--transition);
+    }
+    #lang-toggle:hover {
+      background: var(--accent);
+      color: var(--blue-dark);
+    }
 
     #sidebar nav { padding: 12px 0 24px; }
 
@@ -464,19 +487,77 @@
     #back-top:hover { transform: translateY(-3px); }
 
     /* ── Responsive ── */
+
+    /* Tablet / small laptop */
     @media (max-width: 860px) {
       #sidebar { transform: translateX(-100%); }
       #sidebar.open { transform: none; }
+      #sidebar nav a { padding: 10px 20px; font-size: .88rem; }
       #main { margin-left: 0; }
       #progress-bar { left: 0; }
       #menu-toggle { display: flex; }
       .content { padding: 24px 20px 0; }
-      .hero { padding: 60px 24px 40px; }
+      .hero { padding: 50px 24px 36px; }
+      .hero::after { width: 260px; height: 260px; top: -80px; right: -80px; }
+      .hero-meta { gap: 14px; }
+      .section-header { gap: 10px; }
+      .section-icon { width: 36px; height: 36px; font-size: 1.1rem; }
+      .section-title { font-size: 1.2rem; }
+      .card { padding: 20px 22px; }
+      .strength-box, .limitation-box, .opportunity-box { padding: 14px 16px; }
       .manager-cols { grid-template-columns: 1fr; }
+      .vars-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
+      .future-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+      .diagram-wrap { padding: 14px; }
+      table th, table td { padding: 10px 12px; font-size: .82rem; }
+      .propositions ol li { padding: 10px 12px 10px 46px; }
+      .propositions ol li::before { width: 30px; height: 30px; font-size: .78rem; left: 8px; }
+      #back-top { bottom: 20px; right: 20px; width: 42px; height: 42px; font-size: 1.1rem; }
     }
 
+    /* Large phone */
     @media (max-width: 560px) {
+      .hero { padding: 44px 18px 30px; }
       .hero h1 { font-size: 1.5rem; }
+      .hero::after { display: none; }
+      .hero-meta { flex-direction: column; gap: 8px; }
+      .hero-meta span { font-size: .8rem; }
+      .content { padding: 18px 14px 0; }
+      .section { margin-bottom: 32px; }
+      .section-header { gap: 8px; }
+      .section-icon { width: 32px; height: 32px; font-size: 1rem; }
+      .section-title { font-size: 1.1rem; }
+      .card { padding: 16px 14px; }
+      .sub-section { padding-left: 14px; border-left-width: 2px; }
+      .slo-tabs { gap: 4px; flex-wrap: wrap; }
+      .tab-btn { padding: 5px 12px; font-size: .76rem; }
+      .strength-box, .limitation-box, .opportunity-box { padding: 12px 14px; }
+      .bullet-list li { padding-left: 18px; font-size: .86rem; }
+      .vars-grid { grid-template-columns: 1fr; gap: 8px; }
+      .var-card { padding: 12px; }
+      .future-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .future-chip { padding: 10px 12px; font-size: .78rem; }
+      table { font-size: .78rem; }
+      table th, table td { padding: 8px 8px; }
+      .propositions ol li { padding: 8px 10px 8px 40px; font-size: .88rem; }
+      .propositions ol li::before { width: 26px; height: 26px; font-size: .72rem; left: 6px; }
+      .diagram-wrap { padding: 10px; margin: 14px 0 6px; }
+      .diagram-caption { font-size: .72rem; }
+      .references li { font-size: .8rem; padding: 8px 0; }
+      #back-top { bottom: 16px; right: 16px; width: 38px; height: 38px; font-size: 1rem; }
+      #menu-toggle { top: 10px; left: 10px; padding: 7px 9px; }
+    }
+
+    /* Small phone (≤ 380px) */
+    @media (max-width: 380px) {
+      .hero { padding: 40px 14px 24px; }
+      .hero h1 { font-size: 1.3rem; }
+      .content { padding: 14px 10px 0; }
+      .card { padding: 14px 12px; }
+      .section-title { font-size: 1rem; }
+      .tab-btn { padding: 4px 8px; font-size: .72rem; }
+      .future-grid { grid-template-columns: 1fr; }
+      table th, table td { padding: 6px 6px; font-size: .74rem; }
     }
 
     /* ── SVG Diagrams ── */
@@ -522,6 +603,7 @@
   <div class="sidebar-header">
     <h2>Contents</h2>
     <p>Organizational Structure</p>
+    <button id="lang-toggle" onclick="toggleLang()" title="Toggle English / Spanish">ES</button>
   </div>
   <nav id="toc">
     <div class="nav-group">
@@ -3095,6 +3177,705 @@
   navLinks.forEach(a => a.addEventListener('click', () => {
     if (window.innerWidth <= 860) closeSidebar();
   }));
+
+  /* ═══════════════════════════════════════════
+     ── Language Toggle: English ↔ Spanish ──
+     ═══════════════════════════════════════════ */
+  let currentLang = 'en';
+
+  /* Translation dictionary keyed by data-i18n attribute values */
+  const es = {
+    /* ── UI chrome ── */
+    'ui-badge': 'Artículo Académico',
+    'ui-hero-title': 'Estructura Organizacional',
+    'ui-contents': 'Contenido',
+    'ui-subtitle': 'Estructura Organizacional',
+    'tab-strengths': '✅ Fortalezas',
+    'tab-limitations': '⚠️ Limitaciones',
+    'tab-opportunities': '💡 Oportunidades',
+
+    /* ── Nav group labels ── */
+    'nav-g-0': 'Introducción',
+    'nav-g-1': 'Centralización',
+    'nav-g-2': 'Tipos de Estructura',
+    'nav-g-3': 'Mecanicista y Orgánica',
+    'nav-g-4': 'Estructuras Avanzadas',
+    'nav-g-5': 'Estructuras Adicionales',
+    'nav-g-6': 'Recursos',
+
+    /* ── Nav links ── */
+    'nav-0': 'Resumen y Planteamiento del Problema',
+    'nav-1': 'Estructuras Organizacionales',
+    'nav-2': 'Diseños de Servicios de Salud',
+    'nav-3': 'Estructuras Centralizadas',
+    'nav-4': 'Estructuras Descentralizadas',
+    'nav-5': 'Subsidiariedad',
+    'nav-6': 'Cuándo Centralizar/Descentralizar',
+    'nav-7': 'Jerarquía Tradicional',
+    'nav-8': 'Organizaciones Más Planas',
+    'nav-9': 'Organizaciones Planas',
+    'nav-10': 'Flatarquías',
+    'nav-11': 'Organizaciones Holacráticas',
+    'nav-12': 'Resumen General',
+    'nav-13': 'Ocho Variables Org.',
+    'nav-14': 'Siete Proposiciones',
+    'nav-15': 'Mecanicista (Burocrática)',
+    'nav-16': 'Estructura Orgánica',
+    'nav-17': 'Estructuras Matriciales',
+    'nav-18': 'Adhocracia',
+    'nav-19': 'Burocracia',
+    'nav-20': 'Meritocracia',
+    'nav-21': 'Estructura Simple',
+    'nav-22': 'Burocracia Mecánica',
+    'nav-23': 'Burocracia Profesional',
+    'nav-24': 'Forma Divisionalizada',
+    'nav-25': 'Organizaciones Funcionales',
+    'nav-26': 'Divisional por Producto',
+    'nav-27': 'Divisional por Mercado',
+    'nav-28': 'Divisional Geográfica',
+    'nav-29': 'Estructura Basada en Procesos',
+    'nav-30': 'Estructura Circular',
+    'nav-31': 'Estructura en Red',
+    'nav-32': 'Referencias',
+
+    /* ── Hero meta ── */
+    'hero-meta-2': 'Seminario en Teoría Organizacional',
+    'hero-meta-3': 'Profesora Laurie Alexander — South University',
+
+    /* ── Section titles ── */
+    'title-intro': 'Resumen y Planteamiento del Problema',
+    'title-org-structures': 'Estructuras Organizacionales',
+    'title-health-designs': 'Diseños de Organización de Servicios de Salud',
+    'title-centralized': 'Estructuras Centralizadas',
+    'title-decentralized': 'Estructuras Descentralizadas',
+    'title-subsidiarity': 'Subsidiariedad',
+    'title-when-table': 'Cuándo Centralizar o Descentralizar',
+    'title-hierarchy': 'Jerarquía Tradicional',
+    'title-flatter': 'Organizaciones Más Planas',
+    'title-flat': 'Organizaciones Planas',
+    'title-flatarchies': 'Flatarquías',
+    'title-holacracy': 'Organizaciones Holacráticas',
+    'title-mech-organic': 'Estructuras Mecanicistas y Orgánicas',
+    'title-eight-vars': 'Ocho Variables Organizacionales',
+    'title-seven-props': 'Siete Proposiciones Organizacionales',
+    'title-mechanist': 'Estructura Mecanicista (Burocrática)',
+    'title-organic': 'Estructura Orgánica',
+    'title-matrix': 'Estructuras Matriciales',
+    'title-adhocracy': 'Adhocracia',
+    'title-bureaucracy': 'Burocracia',
+    'title-meritocracy': 'Meritocracia',
+    'title-references': 'Referencias',
+    'title-simple-structure': 'Estructura Simple',
+    'title-machine-bureaucracy': 'Burocracia Mecánica',
+    'title-professional-bureaucracy': 'Burocracia Profesional',
+    'title-divisionalized-form': 'Forma Divisionalizada',
+    'title-functional-org': 'Organizaciones Funcionales',
+    'title-product-divisional': 'Estructura Divisional por Producto',
+    'title-market-divisional': 'Estructura Divisional por Mercado',
+    'title-geo-divisional': 'Estructura Divisional Geográfica',
+    'title-process-based': 'Estructura Basada en Procesos',
+    'title-circular': 'Estructura Circular',
+    'title-network': 'Estructura en Red',
+
+    /* ── Diagram captions ── */
+    'cap-centralized': 'Estructura Centralizada — Poder de decisión consolidado en un solo órgano de gobierno',
+    'cap-decentralized': 'Estructura Descentralizada — Poder de decisión distribuido entre divisiones autónomas',
+    'cap-hierarchy': 'Jerarquía Tradicional — Cadena de mando piramidal con poder fluyendo hacia abajo',
+    'cap-flatter': 'Organización Más Plana — Menos niveles con comunicación bidireccional entre capas',
+    'cap-flat': 'Organización Plana — Todos los empleados son iguales sin jerarquía formal',
+    'cap-flatarchies': 'Flatarquía — La jerarquía existente genera equipos planos de innovación según sea necesario',
+    'cap-holacracy': 'Organización Holacrática — Círculos anidados de roles con autoridad distribuida',
+    'cap-mechanist': 'Estructura Mecanicista — jerarquía rígida con control formal de arriba hacia abajo',
+    'cap-organic': 'Estructura Orgánica — red adaptable y flexible con flujo multidireccional',
+    'cap-adhocracy': 'Adhocracia — equipos fluidos se forman y disuelven alrededor de oportunidades',
+    'cap-bureaucracy': 'Burocracia — capas rígidas gobernadas por reglas, procedimientos y asignación presupuestaria de arriba hacia abajo',
+    'cap-meritocracy': 'Meritocracia — expertos contribuyen ideas a la discusión abierta; las mejores ideas ganan',
+    'cap-simple-structure': 'Estructura Simple — un líder central supervisa directamente a todos los empleados',
+    'cap-machine-bureaucracy': 'Burocracia Mecánica — analistas de tecnoestructura estandarizan los procesos de trabajo',
+    'cap-professional-bureaucracy': 'Burocracia Profesional — profesionales certificados operan autónomamente en casos complejos',
+    'cap-divisionalized-form': 'Forma Divisionalizada — divisiones autónomas gobernadas por controles de rendimiento centrales',
+    'cap-functional-org': 'Organización Funcional — empleados agrupados por área de especialización',
+    'cap-product-divisional': 'Divisional por Producto — divisiones autónomas por línea de producto',
+    'cap-market-divisional': 'Divisional por Mercado — divisiones organizadas por segmento de clientes',
+    'cap-geo-divisional': 'Divisional Geográfica — divisiones regionales con autoridad operativa local',
+    'cap-process-based': 'Estructura Basada en Procesos — equipos organizados alrededor de flujos de valor de extremo a extremo',
+    'cap-circular': 'Estructura Circular — anillos concéntricos reemplazan la pirámide de arriba hacia abajo',
+    'cap-network': 'Estructura en Red — centro de mando subcontrata a socios externos especializados',
+
+    /* ═══════════════════════════════════════════
+       ── SECTION CONTENT (paragraphs & bullets) ──
+       ═══════════════════════════════════════════ */
+
+    /* ── Intro ── */
+    'intro-p-0': 'El problema a abordar en el estudio propuesto es: <strong>¿Qué partes de las estructuras organizacionales modernas pueden adoptarse para mejorar la estructura gubernamental tradicional?</strong>',
+    'intro-p-1': 'Hasta la fecha, existe una brecha en los artículos académicos que describen la estructura organizacional de las agencias gubernamentales existentes. Para determinar qué partes de las estructuras organizacionales modernas pueden adoptarse para mejorar la estructura gubernamental tradicional, debe completarse un análisis exhaustivo para describir la estructura gubernamental existente. Además, existe una brecha en la literatura que consolide las diferentes estructuras organizacionales en un solo trabajo.',
+    'intro-p-2': 'Para determinar además qué partes de las estructuras organizacionales modernas pueden adoptarse para mejorar la estructura gubernamental tradicional, es necesario compilar una lista completa de las diferentes estructuras organizacionales junto con los diferentes elementos que las construyen. La información obtenida sobre las diferentes estructuras organizacionales necesita ser organizada para que pueda compararse con los sistemas gubernamentales para identificar qué sistemas están en funcionamiento así como oportunidades de implementación.',
+
+    /* ── Org Structures ── */
+    'org-structures-p-0': 'El Diccionario de Negocios (2019) describe las estructuras organizacionales como una <strong>organización jerárquica de líneas de autoridad, comunicación y derechos y deberes</strong> de una organización. La estructura de una organización determina la asignación, control y coordinación del poder y la responsabilidad.',
+    'org-structures-p-1': 'La estructura organizacional también determina el papel de los diferentes departamentos y divisiones junto con cómo la información viaja de un nivel de gestión a otro. No hay garantía de que alguna estructura organizacional funcione en todo momento para mejorar la producción productiva; sin embargo, algunas estructuras tienen mejores posibilidades de funcionar que otras si están diseñadas para satisfacer las necesidades del proyecto (Stuckenbruck, 1979).',
+
+    /* ── Health Designs ── */
+    'health-designs-p-0': 'Los diseños más prevalentes utilizados por las organizaciones de servicios de salud son los <strong>diseños funcional, matricial y divisional</strong> (Perryman-Starkey et al., 1999).',
+    'health-designs-p-1': 'Los diseños organizacionales en salud que colocan el enfoque central en los pacientes son el <strong>diseño de programa</strong> (también conocido como diseño de línea de productos) y el <strong>diseño paralelo</strong>. Estos diseños tienen el potencial de aumentar la calidad y el rendimiento organizacional.',
+    'health-designs-p-2': '<strong>Desventaja:</strong> El personal médico y la gerencia necesitan participar activamente en la gestión del cambio y se proyecta un aumento en el costo de las operaciones.',
+    'health-designs-sub-0': 'Cuatro Mecanismos Integradores que Cruzan Líneas de Productos',
+
+    /* ── Centralized ── */
+    'centralized-p-0': 'Las estructuras centralizadas <strong>consolidan la toma de decisiones en los niveles superiores</strong> con aquellos que tienen una perspectiva más amplia así como más conocimiento e información que los niveles inferiores. El órgano de gobierno suele ser una sede corporativa (Burton et al., 2015).',
+    'centralized-s-0': '<strong>Confiabilidad mediante cumplimiento.</strong> Efectiva para crear y gestionar reglas que permanezcan consistentes en todas las unidades operativas, como las unidades de asuntos internos.',
+    'centralized-s-1': '<strong>Eficiencia mediante sindicación.</strong> Ciertas tareas se completan de manera más económica en una unidad central.',
+    'centralized-s-2': '<strong>Economías de escala tradicionales.</strong> Las tareas repetidas por la misma unidad conducen a especialización, estandarización, apalancamiento, continuidad y productividad.',
+    'centralized-s-3': '<strong>Escala mínima eficiente.</strong> Efectiva para gestionar un campo de especialización con profesionales limitados o infraestructura costosa (TI, tecnología médica, legal).',
+    'centralized-s-4': '<strong>Evitar duplicación.</strong> Más efectiva que la descentralización para gestionar un recurso común compartido entre unidades (por ejemplo, un manual de incorporación único compartido).',
+    'centralized-s-5': '<strong>Perennidad mediante desapego.</strong> Efectiva para gestionar tareas que no se completan cuando se dejan a las unidades operativas — particularmente tareas a largo plazo críticas para la organización.',
+    'centralized-l-0': '<strong>Menor enfoque en la experiencia del empleado</strong> — más difícil atraer y retener talento (Morgan, 2015).',
+    'centralized-l-1': '<strong>Disminuye la capacidad de respuesta</strong> — centralizar puede aumentar el tiempo que toma realizar o aprobar una tarea (Vantrappen &amp; Wirtz, 2017).',
+    'centralized-o-0': 'La oportunidad surge para centralizar una estructura cuando se necesitan <strong>confiabilidad mediante cumplimiento</strong>, <strong>eficiencia mediante sindicación</strong> y <strong>perennidad mediante desapego</strong>.',
+    'centralized-o-1': '<strong>Confiabilidad mediante cumplimiento:</strong> Cuando características como aseguramiento de calidad, políticas de beneficios, prevención de fraude y procedimientos de informes financieros necesitan alinearse consistentemente con el objetivo general de la empresa.',
+    'centralized-o-2': '<strong>Eficiencia mediante sindicación:</strong> Cuando múltiples unidades operativas realizan una tarea por separado y la consolidación en una unidad central es más económica.',
+    'centralized-o-3': '<strong>Economías de escala tradicionales:</strong> Cuando la especialización, estandarización, apalancamiento, continuidad y productividad pueden ganarse con la misma unidad realizando una tarea específica.',
+    'centralized-o-4': '<strong>Escala mínima eficiente:</strong> Cuando la experiencia o infraestructura es limitada (legal, fiscal, TI, tecnología costosa).',
+    'centralized-o-5': '<strong>Evitar duplicación:</strong> Cuando una necesidad similar es compartida por unidades operativas (por ejemplo, manual del empleado, herramienta CRM).',
+    'centralized-o-6': '<strong>Perennidad mediante desapego:</strong> Tareas a largo plazo propensas al abandono, como gestión del conocimiento o iniciativas de innovación radical.',
+
+    /* ── Decentralized ── */
+    'decentralized-p-0': 'En las estructuras descentralizadas, <strong>el poder de toma de decisiones se distribuye a diferentes departamentos y divisiones</strong> que tienen grados variables de independencia. Más comúnmente gobernadas por un nivel que permite más control a nivel local (Burton et al., 2015).',
+    'decentralized-sub-0': 'Tipos de Descentralización',
+    'decentralized-sub-1': 'Cinco Tipos de Descentralización',
+    'decentralized-s-0': '<strong>Mejora la colaboración</strong> — menos niveles de liderazgo mejoran la oportunidad de colaboración (Morgan, 2015).',
+    'decentralized-s-1': '<strong>Mejora la capacidad de respuesta mediante inmediatez</strong> — colocar la responsabilidad en niveles inferiores permite que la organización opere más rápidamente.',
+    'decentralized-l-0': '<strong>Disminuye la confiabilidad mediante cumplimiento</strong> — menos efectiva para mantener reglas consistentes entre unidades.',
+    'decentralized-l-1': '<strong>Disminuye la eficiencia mediante sindicación</strong> — ciertas tareas se completan de manera menos económica cuando se descentralizan.',
+    'decentralized-l-2': '<strong>Disminuye las economías de escala</strong> — reduce la productividad, especialización, estandarización, apalancamiento y continuidad.',
+    'decentralized-l-3': '<strong>Problemas de escala mínima eficiente</strong> — menos efectiva para gestionar profesionales limitados o infraestructura costosa.',
+    'decentralized-l-4': '<strong>Fallo en evitar duplicación</strong> — menos efectiva para gestionar recursos comunes compartidos entre unidades.',
+    'decentralized-l-5': '<strong>Disminuye la perennidad mediante desapego</strong> — no es efectiva para gestionar tareas que no se completan cuando se dejan a las unidades operativas, lo que puede llevar a un fallo crítico.',
+    'decentralized-o-0': 'La oportunidad surge para descentralizar cuando <strong>los niveles superiores están realizando tareas que pueden ser completadas por los niveles inferiores</strong>. La descentralización permite más eficiencia cuando se necesita <strong>capacidad de respuesta mediante inmediatez</strong> en las operaciones.',
+
+    /* ── Subsidiarity ── */
+    'subsidiarity-p-0': '<strong>La subsidiariedad</strong> es un concepto donde las tareas de las estructuras centralizadas se limitan delegando todas las tareas que pueden realizarse a nivel local. Al eliminar las tareas que no necesitan ser realizadas por la autoridad central, los derechos de decisión se convierten en responsabilidad de quienes los necesitan para operar más eficientemente.',
+    'subsidiarity-p-1': 'Cuando los derechos de decisión para todas las tareas que pueden realizarse localmente se convierten en responsabilidad de quienes los necesitan, <strong>se evitan retrasos</strong> que normalmente se atribuyen a la información que viaja a través de múltiples niveles de gestión.',
+    'subsidiarity-sub-0': 'Capacidad de Respuesta mediante Inmediatez',
+    'subsidiarity-sub-p-0': 'La capacidad de respuesta se refiere a reaccionar rápida y apropiadamente a amenazas y oportunidades. Cuando se necesitan respuestas rápidas, es apropiado considerar colocar tanto la responsabilidad como la rendición de cuentas para reaccionar en el nivel jerárquico de la posición que responde. <strong>La descentralización promueve la inmediatez en lugar y tiempo, lo que mejora la capacidad de respuesta.</strong>',
+
+    /* ── When to Centralize table ── */
+    'when-table-label': 'Tabla 1 — ¿Qué tan descentralizada debe ser la toma de decisiones?',
+    'when-table-th-0': 'Cuando es importante…',
+    'when-table-th-1': 'Capacidad de Respuesta',
+    'when-table-th-2': 'Confiabilidad',
+    'when-table-th-3': 'Eficiencia',
+    'when-table-th-4': 'Perennidad',
+    'when-table-td-0': '<strong>Ventajoso para</strong>',
+    'when-table-td-1': 'Descentralización',
+    'when-table-td-2': 'Centralización',
+    'when-table-td-3': 'Centralización',
+    'when-table-td-4': 'Centralización',
+    'when-table-td-5': '<strong>Estimula</strong>',
+    'when-table-td-6': 'Inmediatez',
+    'when-table-td-7': 'Cumplimiento',
+    'when-table-td-8': 'Sindicación',
+    'when-table-td-9': 'Desapego',
+
+    /* ── Hierarchy ── */
+    'hierarchy-p-0': 'La estructura jerárquica tiene una <strong>cadena de mando en forma de pirámide</strong>. La mayor parte del poder está en la cima con muy pocas personas, quienes distribuyen el poder hacia abajo. La comunicación viaja de arriba hacia abajo. Uno de los modelos más antiguos de estructura organizacional, descrito por primera vez por Pseudo-Dionisio el Areopagita (~siglo V d.C.) en <em>De Coelesti Hierarchia</em> para describir nueve órdenes de seres angelicales.',
+    'hierarchy-p-1': 'El modelo jerárquico funciona óptimamente en <strong>trabajos con un bajo nivel de dificultad</strong> donde los trabajadores son fácilmente reemplazables (Morgan, 2015).',
+    'hierarchy-s-0': 'Confiable para <strong>mantener el estado actual de las cosas</strong> en una organización (Morgan, 2015).',
+    'hierarchy-l-0': 'No puede lidiar con la complejidad progresiva y grandes cantidades de información (Stuckenbruck, 1979).',
+    'hierarchy-l-1': 'Obstaculiza la evolución empresarial en asuntos sociales y políticos.',
+    'hierarchy-l-2': 'Facilita la burocracia.',
+    'hierarchy-l-3': 'Aumenta el número de niveles.',
+    'hierarchy-l-4': 'Deteriora el tiempo de respuesta.',
+    'hierarchy-l-5': 'La comunicación fluye de arriba hacia abajo, perjudicando el compromiso, la innovación y la colaboración.',
+    'hierarchy-l-6': 'Menor enfoque en la experiencia del empleado — más difícil atraer y retener talento.',
+    'hierarchy-l-7': 'Permite que competidores innovadores superen rápidamente a la organización jerárquica.',
+    'hierarchy-l-8': 'Considerado un modelo de liderazgo obsoleto (Morgan, 2015).',
+    'hierarchy-o-0': 'La oportunidad de implementación es la misma que cuando centralizar: cuando se necesitan <strong>confiabilidad mediante cumplimiento</strong>, <strong>eficiencia mediante sindicación</strong> y <strong>perennidad mediante desapego</strong>.',
+
+    /* ── Flatter ── */
+    'flatter-p-0': 'Una organización más plana es una <strong>organización jerárquica que ha adoptado características planas</strong>. Los vestigios jerárquicos aún existen pero con más posiciones en la cima y menos niveles en general. El poder aún fluye de arriba hacia abajo, pero la comunicación viaja en ambas direcciones entre capas y a través de la misma capa.',
+    'flatter-p-1': 'El principio central: los empleados <em>quieren</em> trabajar allí por incentivos y experiencia del empleado. La alta dirección se enfoca en delegar autoridad en lugar de distribuir comunicaciones. Generalmente elimina las evaluaciones de empleados (Morgan, 2015).',
+    'flatter-s-0': 'Mejora la capacidad de respuesta mediante inmediatez en estructuras jerárquicas.',
+    'flatter-s-1': 'Mejora la colaboración en estructuras jerárquicas.',
+    'flatter-s-2': 'Aumenta las vías de comunicación.',
+    'flatter-s-3': 'Mayor enfoque en la experiencia del empleado — mejor atracción y retención.',
+    'flatter-s-4': 'Mayor enfoque en innovar asuntos sociales y políticos.',
+    'flatter-s-5': '<strong>Estructura más escalable y práctica para una gran organización</strong> (Morgan, 2015).',
+    'flatter-s-6': 'Estructura más fácil para la transición desde una jerarquía tradicional — requiere mucho menos tiempo, esfuerzo y recursos.',
+    'flatter-l-0': 'Disminuye la confiabilidad mediante cumplimiento.',
+    'flatter-l-1': 'Disminuye la eficiencia mediante sindicación.',
+    'flatter-l-2': 'Disminuye la perennidad mediante desapego.',
+    'flatter-l-3': 'No puede existir sin un sistema significativo de tecnología de información.',
+    'flatter-l-4': 'Se requieren arreglos de trabajo flexibles.',
+    'flatter-l-5': 'Innovar métodos obsoletos es esencial para la supervivencia de esta estructura.',
+    'flatter-o-0': 'Cuando <strong>los niveles superiores de gestión están realizando tareas que pueden ser completadas por niveles inferiores</strong> de autoridad (Vantrappen &amp; Wirtz, 2017).',
+
+    /* ── Flat ── */
+    'flat-p-0': 'Las organizaciones planas son únicas porque no hay <strong>gerentes, títulos de trabajo, antigüedad ni ejecutivos</strong>. Todos los empleados son considerados iguales. Algunas empresas planas permiten a todos los empleados elegir en qué proyectos quieren trabajar e incluso pueden iniciar sus propios proyectos si aseguran financiamiento y un equipo de apoyo (Morgan, 2015).',
+    'flat-s-0': 'Mejora la colaboración.',
+    'flat-s-1': 'Mejora la capacidad de respuesta mediante inmediatez.',
+    'flat-s-2': 'Ciertos tipos de personas están más satisfechas con una estructura plana.',
+    'flat-s-3': 'Fomenta la innovación del empleado.',
+    'flat-l-0': 'No es práctica ni escalable para organizaciones más grandes.',
+    'flat-l-1': 'Generalmente solo es efectiva para organizaciones que <em>comienzan</em> planas.',
+    'flat-l-2': 'Probablemente no sea efectiva para empresas con más de 2,000 empleados.',
+    'flat-l-3': 'Cuando las empresas planas crecen, deben implementarse estructuras jerárquicas.',
+    'flat-l-4': 'Jerarquías informales basadas en la antigüedad surgen naturalmente.',
+    'flat-l-5': 'Se forman camarillas — las personas favorecen ciertos grupos, obstaculizando la colaboración.',
+    'flat-l-6': 'Dificultad para mantener la responsabilidad y confiabilidad.',
+    'flat-l-7': 'La transición de grandes organizaciones requiere recursos enormes.',
+    'flat-l-8': 'No es realista para más del 90% de las empresas en el mundo.',
+    'flat-o-0': 'Una opción progresiva para <strong>empresas que recién comienzan</strong>. Funciona con algunas empresas pequeñas y medianas (Morgan, 2015).',
+
+    /* ── Flatarchies ── */
+    'flatarchies-p-0': '<strong>Las flatarquías combinan estructuras organizacionales jerárquicas y planas.</strong> Pueden ser estructuras planas que forman equipos jerárquicos cuando es necesario, o estructuras jerárquicas que forman equipos planos cuando es necesario.',
+    'flatarchies-p-1': '<em>Ejemplo:</em> El programa Skunkworks de Lockheed Martin — una estructura existente donde empleados innovadores crean equipos ad-hoc para desarrollar nuevas ideas en productos o servicios. Un <strong>programa de innovación</strong> dentro de una empresa actúa como una incubadora interna (Morgan, 2015).',
+    'flatarchies-s-0': 'Puede ser constantemente productiva mientras cambia y progresa constantemente.',
+    'flatarchies-s-1': 'Los equipos generados son más autónomos con menos burocracia.',
+    'flatarchies-s-2': 'Puede implementarse tanto en organizaciones grandes como pequeñas.',
+    'flatarchies-s-3': 'Enfoque en impulsar la innovación.',
+    'flatarchies-s-4': 'La innovación creada puede generar una ventaja competitiva.',
+    'flatarchies-l-0': 'Los equipos formados generalmente requieren más recursos.',
+    'flatarchies-l-1': 'El proceso de formar equipos es muy disruptivo.',
+    'flatarchies-o-0': 'Efectiva tanto en organizaciones grandes como pequeñas. Las empresas podrían beneficiarse enormemente formando un <strong>programa de innovación dentro de su estructura</strong> para actuar como una incubadora interna de innovación (Morgan, 2015).',
+
+    /* ── Holacracy ── */
+    'holacracy-p-0': 'Una organización holacrática tiene <strong>roles en lugar de títulos</strong> y distribuye la toma de decisiones y la autoridad. La estructuración y la toma de decisiones las realizan las personas más comprometidas con el trabajo, que generalmente están en el extremo inferior de las organizaciones jerárquicas. La jerarquía y la estructura existen pero se basan en <strong>departamentos en lugar de personas</strong>. La información es accesible por cualquiera. Hay reuniones continuas para abordar problemas a medida que surgen (Robertson, 2015; Morgan, 2015).',
+    'holacracy-s-0': 'Puede operar rápida y eficientemente mientras persigue un propósito en lugar de un plan obsoleto.',
+    'holacracy-s-1': 'Los efectos pueden implementarse sin cambiar la naturaleza fundamental de la organización.',
+    'holacracy-s-2': 'Los problemas se abordan cuando surgen.',
+    'holacracy-s-3': 'Los empleados trabajan en roles en los que son mejores — potencial para aumentar la productividad.',
+    'holacracy-s-4': 'Partes de la estructura holacrática pueden ser adoptadas por otras estructuras.',
+    'holacracy-l-0': 'Difícil de implementar en grandes organizaciones.',
+    'holacracy-l-1': 'Se requiere un cambio radical para adoptar completamente la estructura.',
+    'holacracy-l-2': 'No ha sido adoptada por una organización mayor de 1,500 personas.',
+    'holacracy-l-3': 'Aún es nueva — no se han reunido suficientes datos para determinar efectividad y sostenibilidad.',
+    'holacracy-o-0': 'Las organizaciones pequeñas y medianas pueden adoptar la holacracia.',
+    'holacracy-o-1': 'Comenzar la organización con holacracia sería óptimo para la implementación.',
+    'holacracy-o-2': 'Oportunidad de adoptar <strong>reuniones continuas</strong> para abordar problemas a medida que surgen.',
+
+    /* ── Mech-Organic overview ── */
+    'mech-organic-p-0': 'Las estructuras mecanicistas y orgánicas son <strong>polos opuestos</strong> utilizados para describir estructuras organizacionales. Las organizaciones generalmente no son completamente mecanicistas ni completamente orgánicas — usualmente se definen <em>entre</em> estos dos extremos (Lunenburg, 2012).',
+
+    /* ── Eight Vars ── */
+    'eight-vars-p-0': '<strong>Medios organizacionales</strong> (cómo se estructuran las organizaciones): centralización, complejidad, estratificación, formalización. <strong>Fines organizacionales</strong> (lo que las organizaciones logran): producción, adaptabilidad, satisfacción laboral, eficiencia.',
+
+    /* ── Seven Props ── */
+    'seven-props-p-0': 'A mayor <strong>centralización</strong>, mayor <strong>producción</strong>.',
+    'seven-props-p-1': 'A mayor <strong>formalización</strong>, mayor <strong>eficiencia</strong>.',
+    'seven-props-p-2': 'A mayor <strong>centralización</strong>, mayor <strong>formalización</strong>.',
+    'seven-props-p-3': 'A mayor <strong>estratificación</strong>, mayor <strong>producción</strong>.',
+    'seven-props-p-4': 'A mayor <strong>estratificación</strong>, menor <strong>satisfacción laboral</strong>.',
+    'seven-props-p-5': 'A mayor <strong>estratificación</strong>, menor <strong>adaptabilidad</strong>.',
+    'seven-props-p-6': 'A mayor <strong>complejidad</strong>, menor <strong>centralización</strong>.',
+
+    /* ── Mechanist ── */
+    'mechanist-p-0': 'Las estructuras mecanicistas se apoyan en la <strong>jerarquía y la burocracia</strong>. Se caracterizan por la centralización de la autoridad, jerarquía vertical, formalización de prácticas y procedimientos, y especialización de funciones. La comunicación fluye de arriba hacia abajo, las tareas se definen estrechamente, con un fuerte enfoque en <strong>cantidad sobre calidad</strong> (Lunenburg, 2012).',
+    'mechanist-s-0': 'Estructura simple y fácil de organizar.',
+    'mechanist-s-1': 'Alta productividad y eficiencia.',
+    'mechanist-l-0': 'Dificultad para lidiar con el cambio rápido.',
+    'mechanist-l-1': 'Pobre capacidad de adaptación.',
+    'mechanist-l-2': 'Baja satisfacción laboral.',
+    'mechanist-l-3': 'Baja calidad de productos y servicios.',
+    'mechanist-o-0': 'Más adecuada para <strong>entornos estables y predecibles</strong> donde las tareas son rutinarias y el volumen de producción es la medida principal de éxito.',
+    'mechanist-o-1': 'Efectiva para funciones gubernamentales que requieren <strong>estricto cumplimiento regulatorio y consistencia procedimental</strong> — como procesamiento de impuestos, licencias y emisión de permisos.',
+    'mechanist-o-2': 'Puede servir como una <strong>estructura base</strong> que se flexibiliza selectivamente con elementos orgánicos en departamentos que enfrentan condiciones más dinámicas.',
+
+    /* ── Organic ── */
+    'organic-p-0': 'Las estructuras orgánicas son lo opuesto de las estructuras mecanicistas — caracterizadas por <strong>múltiples jerarquías débiles; políticas, reglas y procedimientos flexibles; baja formalización; comunicación que fluye en muchas direcciones; toma de decisiones descentralizada</strong>; con tareas que son fluidas y capaces de adaptarse a condiciones cambiantes (Lunenburg, 2012).',
+    'organic-s-0': 'Flexible, eficiente, adaptable y alta satisfacción laboral.',
+    'organic-s-1': 'Fuerte enfoque en la calidad de productos y servicios.',
+    'organic-l-0': 'Muy compleja.',
+    'organic-l-1': 'Baja producción y eficiencia.',
+    'organic-o-0': 'Ideal para <strong>entornos dinámicos y de cambio rápido</strong> donde la innovación, adaptabilidad y compromiso de los empleados son críticos.',
+    'organic-o-1': 'Las agencias gubernamentales que enfrentan <strong>desafíos complejos e interdepartamentales</strong> — como gestión de emergencias, modernización tecnológica o colaboración interagencial — pueden beneficiarse de elementos orgánicos que empoderan la toma de decisiones en primera línea.',
+    'organic-o-2': 'Puede introducirse <strong>selectivamente dentro de un marco mecanicista</strong> — por ejemplo, usando estructuras de equipo orgánicas para I+D o unidades de innovación en políticas mientras se mantienen las operaciones rutinarias mecanicistas.',
+
+    /* ── Matrix ── */
+    'matrix-p-0': 'Una organización matricial es aquella donde hay <strong>dos o más gerentes de responsabilidad y rendición de cuentas</strong> para diversos miembros del personal. Generalmente dos cadenas de mando: una línea <em>funcional</em> y una línea de <em>proyecto/cliente/producto</em>. La industria aeroespacial fue la primera en implementarla. El poder tiende a "hundirse" — se opone por la alta dirección y se empuja a niveles inferiores donde prospera (Stuckenbruck, 1979).',
+    'matrix-s-0': '<strong>Uso eficiente de recursos</strong> — los escasos recursos humanos, de instalaciones y equipos pueden compartirse óptimamente entre proyectos.',
+    'matrix-s-1': '<strong>Objetivos de proyecto más claros</strong> — altamente visibles a lo largo de la oficina de proyectos y equilibrados con los objetivos funcionales.',
+    'matrix-s-2': '<strong>Desarrollo de gerentes de proyecto</strong> — excelente oportunidad de capacitación con trayectorias profesionales claras hacia la alta dirección.',
+    'matrix-s-3': '<strong>Integración de proyectos</strong> — mecanismo claro para integrar paquetes de trabajo a través de líneas funcionales.',
+    'matrix-s-4': '<strong>Retención de equipos disciplinarios</strong> — los especialistas permanecen juntos preservando tecnología y conocimiento; la sinergia aumenta la producción.',
+    'matrix-s-5': '<strong>Flujo de información</strong> — fluye tanto horizontal como verticalmente permitiendo una difusión efectiva.',
+    'matrix-s-6': '<strong>Alta moral</strong> — los logros visibles en proyectos exitosos construyen activamente la moral.',
+    'matrix-s-7': '<strong>Cierre de proyecto</strong> — la terminación es menos traumática; menos personas necesitan ser transferidas o despedidas.',
+    'matrix-l-0': '<strong>Dos jefes</strong> — el conflicto entre gerentes puede atrapar al personal del proyecto en el medio, o el personal puede enfrentar un jefe contra el otro.',
+    'matrix-l-1': '<strong>Conflictos de prioridad</strong> — cada gerente ve su proyecto/departamento como la máxima prioridad, cargando a la alta dirección.',
+    'matrix-l-2': '<strong>Complejidad</strong> — extremadamente compleja; dificultad para reaccionar rápidamente, monitorear y controlar, orientación conflictiva.',
+    'matrix-l-3': '<strong>Conflictos de objetivos de gestión</strong> — equilibrar los objetivos de los gerentes de proyecto vs. funcionales conduce a luchas.',
+    'matrix-l-4': '<strong>Potencial de conflicto y sabotaje</strong> — la competencia por recursos puede degenerar en luchas de poder.',
+    'matrix-l-5': '<strong>Estrés y ansiedad</strong> — la estructura de dos jefes produce estrés, ansiedad y reducción de la satisfacción laboral.',
+    'matrix-l-6': '<strong>Colapso durante crisis económica</strong> — la alta dirección tiende a revertir a la jerarquía durante períodos de crisis.',
+    'matrix-l-7': '<strong>Gastos generales excesivos</strong> — la gestión se duplica inicialmente; los gastos generales disminuyen a medida que la matriz madura.',
+    'matrix-o-0': 'Cuando existe una necesidad multidisciplinaria y la gestión de proyectos es necesaria.',
+    'matrix-o-1': 'Cuando hay necesidad de una estructura que pueda gestionar <strong>problemas grandes y complejos</strong> con recursos limitados.',
+    'matrix-o-2': 'Cuando las funciones y habilidades están fragmentadas a lo largo de la estructura.',
+    'matrix-o-3': 'Cuando los departamentos individuales luchan por resolver grandes problemas porque no ven el sistema total.',
+
+    /* ── Adhocracy ── */
+    'adhocracy-p-0': 'Una adhocracia es una <strong>estructura organizacional formal altamente flexible, receptiva y débilmente conectada</strong>. Derivada de la necesidad de comprender, reconocer y resolver problemas en entornos turbulentos y complicados. El término fue acuñado por <strong>Alvin Toffler en la década de 1970</strong>. Los ejemplos incluyen la NASA en su primera década y la Agencia de Proyectos de Investigación Avanzada de Defensa (Desveaux, 2019).',
+    'adhocracy-p-1': 'Distinción clave: las actividades se <strong>estructuran alrededor de oportunidades o problemas</strong> en lugar de reglas o procedimientos. Las decisiones se toman por experimentación, prueba y error. Las personas se motivan a través de metas exigentes y reconocimiento (Birkinshaw &amp; Ridderstråle, s.f.).',
+    'adhocracy-sub-0': 'Tres Principios Operativos',
+    'adhocracy-sub-1': '1. Estructurar Actividades alrededor de Oportunidades',
+    'adhocracy-sub-2': '2. Decisiones Basadas en Experimentación',
+    'adhocracy-sub-3': '3. Motivar mediante Logro y Reconocimiento',
+    'adhocracy-s-0': 'Maleable y adecuada para abordar problemas mal estructurados y complejos.',
+    'adhocracy-s-1': 'Puede crearse y terminarse rápidamente según la oportunidad.',
+    'adhocracy-s-2': 'Complementa el progreso en aprendizaje automático y análisis avanzado.',
+    'adhocracy-s-3': 'La técnica ágil ha demostrado ser mejor que el modelo cascada para el desarrollo de software.',
+    'adhocracy-s-4': 'Mejora el retorno de atención de la empresa mediante experimentación rápida.',
+    'adhocracy-l-0': 'Las unidades técnicas y gerenciales requieren autonomía que los líderes políticos generalmente no prefieren otorgar.',
+    'adhocracy-l-1': 'Riesgo considerable en el trabajo que se realiza.',
+    'adhocracy-l-2': 'A menudo facilita la controversia debido a tareas críticas y riesgosas.',
+    'adhocracy-l-3': 'La asignación de capital, presupuestos, dotación de proyectos y desarrollo de nuevos productos tienden a favorecer modelos burocráticos/meritocráticos.',
+    'adhocracy-o-0': 'Cuando las organizaciones necesitan comprender, reconocer y resolver problemas en <strong>entornos turbulentos y complicados</strong>.',
+    'adhocracy-o-1': 'Empresas jóvenes privadas de alta tecnología que enfrentan competencia feroz.',
+    'adhocracy-o-2': 'Grandes organizaciones multidivisionales pueden estructurar algunas unidades como adhocracias mientras otras permanecen jerárquicas para tareas rutinarias.',
+    'adhocracy-o-3': 'Cuando pequeños equipos de adhocracia necesitan abordar un problema único a un ritmo acelerado fuera de los procesos formales.',
+    'adhocracy-o-4': 'Al enfrentar una decisión difícil — experimentar, monitorear retroalimentación, hacer cambios, monitorear progreso.',
+
+    /* ── Bureaucracy ── */
+    'bureaucracy-p-0': 'Las burocracias utilizan <strong>procedimientos, reglas y rutinas</strong> para coordinar sus actividades. Las decisiones las toman los superiores diciéndoles a los subordinados qué hacer. La información se presenta hacia arriba para influir en las asignaciones presupuestarias. Las decisiones fluyen de arriba hacia abajo, a menudo con asignaciones presupuestarias. Las personas se motivan principalmente con <strong>recompensas extrínsecas</strong> (predominantemente dinero). Los que supervisan los presupuestos más grandes son los más respetados (Birkinshaw &amp; Ridderstråle, s.f.).',
+    'bureaucracy-s-0': 'La asignación de capital, presupuestos, dotación de proyectos y desarrollo de nuevos productos tienden a funcionar mejor bajo modelos burocráticos o meritocráticos.',
+    'bureaucracy-s-1': '<strong>Previsibilidad y consistencia</strong> — las reglas y procedimientos estandarizados aseguran resultados uniformes y reducen la ambigüedad.',
+    'bureaucracy-s-2': '<strong>Autoridad y responsabilidad claras</strong> — las cadenas de mando bien definidas facilitan la asignación de responsabilidad por las decisiones.',
+    'bureaucracy-s-3': '<strong>Manejo eficiente de tareas rutinarias</strong> — los procesos burocráticos sobresalen cuando el trabajo es repetitivo y bien comprendido.',
+    'bureaucracy-s-4': '<strong>Escalabilidad</strong> — la coordinación basada en reglas permite que la organización crezca sin depender únicamente de líderes individuales.',
+    'bureaucracy-l-0': '<strong>Lenta para adaptarse</strong> — los procedimientos rígidos dificultan la respuesta rápida a cambios ambientales o situaciones nuevas.',
+    'bureaucracy-l-1': '<strong>Sofoca la innovación</strong> — el énfasis en reglas y precedentes desalienta la resolución creativa de problemas y la asunción de riesgos.',
+    'bureaucracy-l-2': '<strong>Baja moral de empleados</strong> — roles estrechos y repetitivos con autonomía limitada conducen al descompromiso y alta rotación.',
+    'bureaucracy-l-3': '<strong>Trámites e ineficiencia</strong> — capas excesivas de aprobación y papeleo ralentizan la toma de decisiones y aumentan los costos.',
+    'bureaucracy-l-4': '<strong>Desplazamiento de objetivos</strong> — seguir procedimientos puede convertirse en un fin en sí mismo, eclipsando la misión real de la organización.',
+    'bureaucracy-l-5': '<strong>Mala comunicación</strong> — la información que pasa por muchos niveles jerárquicos se distorsiona o retrasa frecuentemente.',
+    'bureaucracy-o-0': 'Más adecuada para entornos estables donde el <strong>cumplimiento, seguridad y consistencia</strong> son primordiales — agencias gubernamentales, servicios públicos, industrias reguladas.',
+    'bureaucracy-o-1': 'Efectiva cuando la organización debe <strong>procesar grandes volúmenes de trabajo rutinario</strong> con errores mínimos, como procesamiento de impuestos o administración de beneficios.',
+    'bureaucracy-o-2': 'Las agencias gubernamentales pueden aprovechar las fortalezas burocráticas mientras <strong>introducen elementos híbridos</strong> — como fuerzas de tarea interfuncionales o laboratorios de innovación — para mitigar la rigidez sin abandonar las salvaguardas procedimentales centrales.',
+
+    /* ── Meritocracy ── */
+    'meritocracy-p-0': 'Las meritocracias coordinan sus actividades <strong>haciendo ajustes basados en el flujo de información</strong>. Las decisiones se toman discutiendo alternativas, dando a todos igualdad de oportunidad para presentar su punto de vista. La información se recopila y se utiliza para <strong>persuadir a los pares a la acción</strong>.',
+    'meritocracy-p-1': 'Las personas se motivan a través del logro, el reconocimiento y el trabajo interesante que les permite dominar un campo de especialización. Los más respetados son quienes presentan las ideas más ingeniosas (Birkinshaw &amp; Ridderstråle, s.f.).',
+    'meritocracy-s-0': 'La asignación de capital, presupuestos, dotación de proyectos y desarrollo de nuevos productos tienden a funcionar mejor bajo modelos burocráticos o meritocráticos.',
+    'meritocracy-s-1': '<strong>Las mejores ideas emergen</strong> — la discusión abierta y la persuasión entre pares aseguran que las decisiones se basen en la calidad del argumento, no en el rango.',
+    'meritocracy-s-2': '<strong>Alto compromiso y motivación</strong> — las personas se motivan por logro, maestría y reconocimiento en lugar de autoridad posicional.',
+    'meritocracy-s-3': '<strong>Atrae al mejor talento</strong> — los expertos buscan entornos donde sus habilidades e ideas sean valoradas y recompensadas por mérito.',
+    'meritocracy-s-4': '<strong>Favorable a la innovación</strong> — una cultura que recompensa las ideas ingeniosas fomenta naturalmente la experimentación y la resolución creativa de problemas.',
+    'meritocracy-s-5': '<strong>Intercambio de conocimiento</strong> — el discurso abierto fomenta el libre flujo de información a través de la organización.',
+    'meritocracy-l-0': '<strong>Difícil de escalar</strong> — la discusión abierta entre todos los participantes se vuelve impráctica a medida que la organización crece más allá de cierto tamaño.',
+    'meritocracy-l-1': '<strong>Potencial de sesgo</strong> — el "mérito" puede definirse subjetivamente; personalidades dominantes o grupos mayoritarios pueden influir desproporcionadamente en qué ideas se reconocen.',
+    'meritocracy-l-2': '<strong>Construcción lenta de consenso</strong> — requerir persuasión entre pares y discusión para cada decisión puede retrasar la acción en situaciones sensibles al tiempo.',
+    'meritocracy-l-3': '<strong>Propenso a conflictos</strong> — el debate vigoroso puede escalar a conflictos interpersonales, especialmente cuando hay mucho en juego.',
+    'meritocracy-l-4': '<strong>Infravalora contribuciones no técnicas</strong> — los roles de apoyo, trabajo operativo y labor emocional pueden pasarse por alto cuando la "ingenuidad" es la métrica principal de estatus.',
+    'meritocracy-l-5': '<strong>Responsabilidad poco clara</strong> — cuando las decisiones surgen de la discusión grupal, puede ser difícil identificar quién es responsable de los resultados.',
+    'meritocracy-o-0': 'Ideal para <strong>organizaciones intensivas en conocimiento</strong> — laboratorios de investigación, empresas tecnológicas, centros de estudio y firmas de consultoría donde la contribución intelectual es el principal impulsor de valor.',
+    'meritocracy-o-1': 'Efectiva cuando se combina con <strong>criterios de evaluación transparentes</strong> — estándares claros y medibles de lo que constituye "mérito" ayudan a reducir el sesgo y aumentar la equidad.',
+    'meritocracy-o-2': 'Las agencias gubernamentales pueden adoptar elementos meritocráticos creando <strong>juntas de innovación o concursos de ideas</strong> donde empleados de cualquier nivel pueden proponer y defender mejoras, con reconocimiento y recursos asignados según la calidad de las propuestas.',
+
+    /* ── Simple Structure ── */
+    'simple-structure-p-0': 'La estructura simple es una de las formas organizacionales más básicas, caracterizada por <strong>poca o ninguna tecnoestructura, pocos miembros del personal de apoyo, división laxa del trabajo, diferenciación mínima entre unidades y una pequeña jerarquía gerencial</strong> (Mintzberg, 1979). La toma de decisiones está altamente centralizada en un solo líder — típicamente el propietario o fundador — quien coordina mediante supervisión directa. Hay mínima formalización: existen pocas políticas, reglas o procedimientos estandarizados. Las estructuras simples son comunes en pequeñas organizaciones emprendedoras en sus primeras etapas de desarrollo.',
+    'simple-structure-s-0': '<strong>Rápida y flexible</strong> — pocas capas de gestión permiten una toma de decisiones rápida y respuesta veloz a los cambios ambientales.',
+    'simple-structure-s-1': '<strong>Responsabilidad clara</strong> — una sola autoridad central hace que los roles y responsabilidades sean inequívocos.',
+    'simple-structure-s-2': '<strong>Bajos gastos generales</strong> — una estructura administrativa mínima mantiene los costos bajos.',
+    'simple-structure-s-3': '<strong>Fuerte sentido de misión</strong> — la visión del fundador impulsa la cohesión y el propósito en toda la organización.',
+    'simple-structure-s-4': '<strong>Altamente adaptable</strong> — la estructura informal permite a la organización pivotar rápidamente sin resistencia burocrática.',
+    'simple-structure-l-0': '<strong>No escalable</strong> — a medida que la organización crece, una persona no puede gestionar efectivamente todas las decisiones.',
+    'simple-structure-l-1': '<strong>Dependencia excesiva de una persona</strong> — la salud, disponibilidad y juicio de la figura central pueden hacer o deshacer la organización.',
+    'simple-structure-l-2': '<strong>Vulnerable a crisis de sucesión</strong> — si el líder se va, a menudo no hay un sucesor claro ni base de conocimiento institucional.',
+    'simple-structure-l-3': '<strong>Especialización limitada</strong> — la falta de roles formales puede resultar en ineficiencia a medida que la organización se vuelve más compleja.',
+    'simple-structure-l-4': '<strong>Mala gestión del conocimiento</strong> — las estructuras informales raramente documentan el conocimiento, creando riesgo cuando las personas se van.',
+    'simple-structure-o-0': 'Ideal para <strong>startups y pequeñas empresas</strong> en etapas tempranas donde la velocidad y la visión del fundador son ventajas competitivas críticas.',
+    'simple-structure-o-1': 'Apropiada cuando el entorno es <strong>simple y dinámico</strong> — requiere adaptación rápida pero no gran complejidad.',
+    'simple-structure-o-2': 'Adecuada para <strong>operaciones en modo de crisis</strong> donde la autoridad centralizada y el mando rápido son necesarios.',
+
+    /* ── Machine Bureaucracy ── */
+    'machine-bureaucracy-p-0': 'La burocracia mecánica es una configuración estructural descrita por Henry Mintzberg (1979) en la cual el trabajo se <strong>coordina mediante la estandarización de los procesos de trabajo</strong>. Se caracteriza por tareas operativas altamente especializadas y rutinarias; procedimientos muy formalizados; proliferación de reglas, regulaciones y comunicación; unidades de gran tamaño a nivel operativo; dependencia de la agrupación funcional; y estructura de poder relativamente centralizada. La parte clave de la organización es la tecnoestructura — los analistas que formalizan y estandarizan el trabajo de otros. Ejemplos clásicos incluyen fabricantes de automóviles, servicios postales y grandes agencias gubernamentales.',
+    'machine-bureaucracy-s-0': '<strong>Alta eficiencia y productividad</strong> — la estandarización de tareas repetitivas reduce errores y maximiza el rendimiento.',
+    'machine-bureaucracy-s-1': '<strong>Responsabilidad clara</strong> — las reglas y procedimientos formales dejan poca ambigüedad sobre roles y responsabilidades.',
+    'machine-bureaucracy-s-2': '<strong>Economías de escala</strong> — los procesos de producción en masa se benefician enormemente de la estandarización y repetición.',
+    'machine-bureaucracy-s-3': '<strong>Consistencia y confiabilidad</strong> — la calidad del producto es predecible y uniforme, adecuada para industrias reguladas.',
+    'machine-bureaucracy-s-4': '<strong>Bajos requisitos de habilidad</strong> — el trabajo puede ser realizado por trabajadores fácilmente capacitados e intercambiables.',
+    'machine-bureaucracy-l-0': '<strong>Inflexibilidad</strong> — los procesos altamente estandarizados no pueden adaptarse rápidamente al cambio ambiental.',
+    'machine-bureaucracy-l-1': '<strong>Baja satisfacción laboral</strong> — el trabajo repetitivo y estrechamente definido conduce a la alienación del trabajador y alta rotación.',
+    'machine-bureaucracy-l-2': '<strong>Obsesión con el control</strong> — la gestión se fija en mantener el sistema en lugar de abordar problemas reales.',
+    'machine-bureaucracy-l-3': '<strong>Mala comunicación</strong> — la información que viaja por muchos niveles a menudo se distorsiona o pierde.',
+    'machine-bureaucracy-l-4': '<strong>Problemas de coordinación</strong> — las divisiones funcionales y los límites estrictos crean silos y conflictos interdepartamentales.',
+    'machine-bureaucracy-o-0': 'Más adecuada para organizaciones que realizan <strong>trabajo simple y repetitivo</strong> en un entorno estable y predecible.',
+    'machine-bureaucracy-o-1': 'Ideal para industrias donde la <strong>seguridad, cumplimiento y consistencia</strong> son primordiales — aerolíneas, energía nuclear, procesamiento de alimentos.',
+    'machine-bureaucracy-o-2': 'Efectiva cuando la <strong>reducción de costos mediante eficiencia del proceso</strong> es un objetivo estratégico principal.',
+
+    /* ── Professional Bureaucracy ── */
+    'professional-bureaucracy-p-0': 'La burocracia profesional coordina el trabajo mediante la <strong>estandarización de habilidades</strong> en lugar de procesos de trabajo o resultados (Mintzberg, 1979). El núcleo operativo — compuesto por profesionales capacitados como médicos, abogados, profesores o contadores — tiene autonomía sustancial. Los profesionales aplican habilidades estandarizadas aprendidas a través de años de capacitación a problemas complejos y ambiguos de los clientes. La organización depende del cuerpo profesional externo (por ejemplo, un colegio médico o colegio de abogados) para definir y hacer cumplir los estándares. El poder fluye hacia quienes tienen experiencia en lugar de posición formal. Ejemplos clásicos incluyen hospitales, universidades, bufetes de abogados y firmas de contabilidad.',
+    'professional-bureaucracy-s-0': '<strong>Alta autonomía para profesionales</strong> — los expertos pueden ejercer juicio apropiado para las necesidades complejas e individualizadas de los clientes.',
+    'professional-bureaucracy-s-1': '<strong>Alta satisfacción laboral</strong> — los profesionales se motivan por la naturaleza intrínseca del trabajo complejo y significativo.',
+    'professional-bureaucracy-s-2': '<strong>Calidad de producción</strong> — la profunda especialización y la rigurosa capacitación profesional impulsan altos estándares.',
+    'professional-bureaucracy-s-3': '<strong>Democrática y descentralizada</strong> — el poder distribuido a profesionales capacitados promueve el compromiso.',
+    'professional-bureaucracy-s-4': '<strong>Adaptable a nivel individual</strong> — los profesionales ejercen discreción para adaptar su enfoque a cada situación única.',
+    'professional-bureaucracy-l-0': '<strong>Difícil de coordinar</strong> — los profesionales autónomos resisten la estandarización, haciendo la integración interfuncional desafiante.',
+    'professional-bureaucracy-l-1': '<strong>Resistencia al cambio</strong> — los profesionales son leales a su disciplina primero, la organización segundo, haciendo la reforma lenta.',
+    'professional-bureaucracy-l-2': '<strong>Difícil de gestionar el rendimiento</strong> — el trabajo profesional complejo es difícil de medir, evaluar y responsabilizar.',
+    'professional-bureaucracy-l-3': '<strong>Conflicto interprofesional</strong> — diferentes grupos profesionales (por ejemplo, médicos vs. administradores en hospitales) frecuentemente chocan sobre prioridades y recursos.',
+    'professional-bureaucracy-l-4': '<strong>Innovación insuficiente</strong> — la estructura apoya perfeccionar habilidades existentes en lugar de desarrollar completamente nuevas.',
+    'professional-bureaucracy-o-0': 'Apropiada para organizaciones que realizan <strong>trabajo complejo e individualizado</strong> en un entorno estable — hospitales, universidades, firmas de consultoría.',
+    'professional-bureaucracy-o-1': 'Cuando el <strong>núcleo operativo debe ejercer juicio significativo</strong> y no puede ser supervisado de cerca por no expertos.',
+    'professional-bureaucracy-o-2': 'Altamente relevante para la <strong>mejora de la estructura hospitalaria</strong> — comprender la burocracia profesional es clave para identificar dónde la gestión puede apoyar mejor en lugar de restringir a los profesionales clínicos.',
+
+    /* ── Divisionalized Form ── */
+    'divisionalized-form-p-0': 'La forma divisionalizada consiste en un conjunto de <strong>unidades cuasi-autónomas unidas por una estructura administrativa central</strong> (Mintzberg, 1979). Cada división tiene control sobre sus propias operaciones y rinde cuentas a la sede mediante sistemas de control de rendimiento. Las divisiones se organizan típicamente alrededor de mercados — líneas de productos, regiones geográficas o grupos de clientes — y cada división generalmente funciona como su propia burocracia mecánica internamente. La parte clave de la organización es la línea media: los gerentes medios que dirigen las divisiones. Grandes corporaciones como General Motors y General Electric son ejemplos clásicos.',
+    'divisionalized-form-s-0': '<strong>Diversificación de riesgo</strong> — el mal rendimiento de una división no desestabiliza toda la organización.',
+    'divisionalized-form-s-1': '<strong>Gestión enfocada</strong> — cada división se enfoca en su propio mercado, producto o región sin distracción.',
+    'divisionalized-form-s-2': '<strong>Responsabilidad mediante rendimiento</strong> — la sede puede monitorear y responsabilizar a las divisiones usando métricas financieras claras.',
+    'divisionalized-form-s-3': '<strong>Terreno de capacitación para gerentes generales</strong> — los jefes de división desarrollan habilidades gerenciales amplias equivalentes a dirigir su propio negocio.',
+    'divisionalized-form-s-4': '<strong>Flexibilidad de asignación de capital</strong> — la sede puede transferir recursos de divisiones más débiles a las de alto rendimiento.',
+    'divisionalized-form-l-0': '<strong>Duplicación de recursos</strong> — cada división replica funciones (RRHH, finanzas, TI), lo que genera mayores gastos generales.',
+    'divisionalized-form-l-1': '<strong>Desalienta el intercambio</strong> — las divisiones compiten en lugar de colaborar, limitando la transferencia de conocimiento y la sinergia.',
+    'divisionalized-form-l-2': '<strong>Fomenta el pensamiento a corto plazo</strong> — los sistemas de control de rendimiento empujan a los gerentes de división hacia resultados trimestrales sobre inversión a largo plazo.',
+    'divisionalized-form-l-3': '<strong>Ignora la responsabilidad social</strong> — el enfoque en el rendimiento financiero puede llevar a decisiones que perjudican a clientes, empleados o la sociedad.',
+    'divisionalized-form-l-4': '<strong>La sede puede volverse burocrática</strong> — la administración central tiende a proliferar reglas y controles con el tiempo.',
+    'divisionalized-form-o-0': 'Apropiada para <strong>organizaciones grandes y diversificadas</strong> que operan en múltiples mercados o regiones geográficas distintas.',
+    'divisionalized-form-o-1': 'Cuando la organización requiere <strong>capacidad de respuesta al mercado local</strong> combinada con supervisión estratégica de una autoridad central.',
+    'divisionalized-form-o-2': 'Los sistemas hospitalarios que operan en <strong>múltiples campus o líneas de servicio</strong> pueden beneficiarse de una forma divisionalizada para equilibrar la gobernanza central con la autonomía operativa.',
+
+    /* ── Functional Org ── */
+    'functional-org-p-0': 'Una organización funcional agrupa a las personas por <strong>área especializada de experiencia o función</strong> — como marketing, finanzas, recursos humanos, operaciones y tecnología de información — con cada función reportando a un jefe de departamento dedicado y en última instancia a un ejecutivo central (Daft, 2016). Es una de las formas más tradicionales y ampliamente utilizadas de diseño organizacional. Todos los empleados en una función dada se agrupan juntos, permitiendo una profunda especialización y agrupación de habilidades similares. La estructura funcional prioriza la eficiencia y la experiencia sobre el enfoque en productos o mercados.',
+    'functional-org-s-0': '<strong>Profunda especialización</strong> — los empleados desarrollan altos niveles de experiencia dentro de su área funcional.',
+    'functional-org-s-1': '<strong>Economías de escala dentro de funciones</strong> — agrupar especialistas reduce la duplicación y baja los costos.',
+    'functional-org-s-2': '<strong>Trayectorias profesionales claras</strong> — los empleados ven una progresión definida dentro de su especialidad.',
+    'functional-org-s-3': '<strong>Uso eficiente de recursos</strong> — la experiencia funcional puede aplicarse a múltiples productos o proyectos.',
+    'functional-org-s-4': '<strong>Fuerte coordinación dentro de funciones</strong> — las habilidades y conocimientos compartidos facilitan la colaboración intradepartamental.',
+    'functional-org-l-0': '<strong>Silos</strong> — la mala coordinación entre departamentos funcionales lleva a una toma de decisiones interfuncional lenta y conflictos territoriales.',
+    'functional-org-l-1': '<strong>Respuesta lenta al cambio ambiental</strong> — las decisiones interdepartamentales requieren una escalación prolongada hasta la cima.',
+    'functional-org-l-2': '<strong>Falta de enfoque en el cliente</strong> — los empleados priorizan su función sobre las necesidades del cliente o paciente final.',
+    'functional-org-l-3': '<strong>Perspectiva estrecha</strong> — la profunda especialización puede impedir que los empleados vean el panorama organizacional completo.',
+    'functional-org-l-4': '<strong>Mala adecuación para proyectos complejos</strong> — las grandes iniciativas multidisciplinarias son difíciles de ejecutar dentro de los límites funcionales.',
+    'functional-org-o-0': 'Mejor para organizaciones con una <strong>línea de producto/servicio única o estrecha</strong> en un entorno estable que valora la profunda experiencia técnica.',
+    'functional-org-o-1': 'Efectiva cuando la <strong>eficiencia y especialización</strong> son más críticas que la velocidad o la capacidad de respuesta al mercado.',
+    'functional-org-o-2': 'Adecuada como estructura base que puede <strong>aumentarse con superposiciones matriciales</strong> cuando se necesita coordinación interfuncional.',
+
+    /* ── Product Divisional ── */
+    'product-divisional-p-0': 'Una estructura divisional basada en productos organiza la empresa en <strong>divisiones semi-autónomas, cada una responsable de una línea de productos o categoría de servicios distinta</strong>. Cada división contiene sus propias capacidades funcionales — marketing, operaciones, finanzas — y opera con un alto grado de independencia. El jefe de división es responsable de todos los aspectos del producto desde el desarrollo hasta las ventas y el servicio al cliente. Empresas como Procter &amp; Gamble y Johnson &amp; Johnson han utilizado históricamente esta forma para gestionar portafolios de productos diversos.',
+    'product-divisional-s-0': '<strong>Clara responsabilidad del producto</strong> — una división es dueña de todo el ciclo de vida de un producto, mejorando el enfoque y la medición del rendimiento.',
+    'product-divisional-s-1': '<strong>Toma de decisiones más rápida</strong> — las divisiones operan autónomamente sin esperar aprobación interfuncional.',
+    'product-divisional-s-2': '<strong>Enfoque en el cliente por producto</strong> — cada división desarrolla un entendimiento profundo de las necesidades de los clientes de su producto específico.',
+    'product-divisional-s-3': '<strong>Flexibilidad para agregar o eliminar líneas de productos</strong> — las divisiones pueden crearse o disolverse sin reestructurar toda la organización.',
+    'product-divisional-s-4': '<strong>Competencia interna saludable</strong> — las divisiones de productos compiten entre sí, estimulando la innovación y el rendimiento.',
+    'product-divisional-l-0': '<strong>Duplicación de recursos</strong> — cada división de producto replica capacidades funcionales, aumentando los gastos generales.',
+    'product-divisional-l-1': '<strong>Intercambio limitado de conocimiento</strong> — las innovaciones y mejores prácticas desarrolladas en una división pueden no transferirse a otras.',
+    'product-divisional-l-2': '<strong>La competencia entre divisiones puede volverse destructiva</strong> — las divisiones pueden retener recursos o información a expensas de toda la organización.',
+    'product-divisional-l-3': '<strong>Experiencia inconsistente del cliente</strong> — los clientes que tratan con múltiples divisiones de productos pueden recibir un servicio inconsistente.',
+    'product-divisional-o-0': 'Mejor para <strong>organizaciones grandes con portafolios de productos diversos y complejos</strong> que requieren atención gerencial dedicada por línea.',
+    'product-divisional-o-1': 'Cuando los productos sirven a <strong>mercados marcadamente diferentes</strong> con dinámicas competitivas, necesidades de clientes y requisitos operativos diferentes.',
+    'product-divisional-o-2': 'Los sistemas de salud pueden aplicar este modelo organizando alrededor de <strong>divisiones de líneas de servicio</strong> como oncología, cardiología u ortopedia.',
+
+    /* ── Market Divisional ── */
+    'market-divisional-p-0': 'Una estructura divisional basada en mercado organiza la empresa según <strong>segmentos de clientes, industrias o mercados atendidos</strong> en lugar de por producto o geografía. Cada división está dedicada a comprender, servir y hacer crecer las relaciones dentro de un mercado específico. Todas las funciones dentro de una división — ventas, marketing, soporte, desarrollo de productos — están alineadas para servir las necesidades de ese grupo particular de clientes. Esta estructura prioriza la <strong>intimidad con el cliente</strong> como estrategia competitiva principal.',
+    'market-divisional-s-0': '<strong>Profundo conocimiento del cliente</strong> — las divisiones desarrollan comprensión especializada de las necesidades específicas, preferencias y comportamientos de compra de su mercado.',
+    'market-divisional-s-1': '<strong>Alta capacidad de respuesta</strong> — cada división puede responder rápidamente a cambios dentro de su segmento de mercado específico.',
+    'market-divisional-s-2': '<strong>Fuertes relaciones con clientes</strong> — el enfoque dedicado construye confianza y lealtad con grupos de clientes específicos.',
+    'market-divisional-s-3': '<strong>Medición clara del rendimiento</strong> — los ingresos y la rentabilidad pueden rastrearse por segmento de mercado.',
+    'market-divisional-l-0': '<strong>Duplicación de capacidades</strong> — cada división requiere su propio conjunto de recursos funcionales, elevando los costos.',
+    'market-divisional-l-1': '<strong>Pobre aprendizaje entre mercados</strong> — los conocimientos de un mercado raramente se comparten con otros.',
+    'market-divisional-l-2': '<strong>Potencial confusión del cliente</strong> — los clientes que abarcan múltiples segmentos de mercado pueden interactuar con varias divisiones sin una experiencia unificada.',
+    'market-divisional-l-3': '<strong>Gobernanza compleja</strong> — a medida que el número de divisiones de mercado crece, la coordinación central se vuelve cada vez más difícil.',
+    'market-divisional-o-0': 'Apropiada cuando una organización sirve a <strong>segmentos de clientes marcadamente diferentes</strong> con necesidades materialmente diferentes — por ejemplo, empresarial vs. consumidor vs. gobierno.',
+    'market-divisional-o-1': 'Efectiva en <strong>industrias B2B</strong> donde la profunda experiencia en la industria y la construcción de relaciones a largo plazo son ventajas competitivas.',
+    'market-divisional-o-2': 'Las aplicaciones en salud incluyen organizar alrededor de <strong>segmentos de población de pacientes</strong> como pediatría, geriatría o gestión de enfermedades crónicas.',
+
+    /* ── Geo Divisional ── */
+    'geo-divisional-p-0': 'Una estructura divisional geográfica organiza la empresa alrededor de <strong>ubicaciones físicas o regiones</strong> — como América del Norte, Europa y Asia-Pacífico — con cada división regional operando semi-autónomamente bajo su propio liderazgo. Cada división regional contiene sus propias capacidades funcionales y es responsable de las operaciones, ventas y rendimiento dentro de su territorio. Esta estructura es común entre corporaciones multinacionales, cadenas minoristas y redes de salud que operan en territorios amplios o geográficamente dispersos.',
+    'geo-divisional-s-0': '<strong>Capacidad de respuesta local</strong> — las divisiones regionales pueden adaptar operaciones, productos y servicios a las condiciones culturales, regulatorias y competitivas locales.',
+    'geo-divisional-s-1': '<strong>Reducción de costos logísticos y operativos</strong> — la proximidad a clientes y proveedores reduce los gastos de transporte y comunicación.',
+    'geo-divisional-s-2': '<strong>Mejor comprensión de los mercados locales</strong> — los gerentes regionales tienen conocimiento directo de las necesidades de los clientes locales y las dinámicas competitivas.',
+    'geo-divisional-s-3': '<strong>La autonomía motiva al liderazgo regional</strong> — los gerentes regionales asumen la propiedad del rendimiento de su territorio.',
+    'geo-divisional-l-0': '<strong>Duplicación de funciones entre regiones</strong> — cada región replica funciones de soporte, aumentando los costos.',
+    'geo-divisional-l-1': '<strong>Estándares inconsistentes de marca y servicio</strong> — la autonomía regional puede llevar a variaciones en calidad, mensajes y experiencia del cliente.',
+    'geo-divisional-l-2': '<strong>Desafíos de coordinación</strong> — alinear estrategia y operaciones en divisiones geográficamente dispersas es complejo y costoso.',
+    'geo-divisional-l-3': '<strong>Dificultad para aprovechar la escala global</strong> — el enfoque regional puede impedir que la organización realice economías de escala disponibles a nivel global.',
+    'geo-divisional-o-0': 'Mejor para organizaciones que <strong>operan en territorios geográficamente diversos</strong> donde las condiciones locales afectan materialmente las operaciones.',
+    'geo-divisional-o-1': 'Cuando los <strong>entornos regulatorios, factores culturales o requisitos logísticos</strong> difieren significativamente entre regiones.',
+    'geo-divisional-o-2': 'Las redes hospitalarias con <strong>múltiples campus</strong> en ciudades o regiones pueden usar esta estructura para equilibrar la gobernanza central con la autoridad operativa local.',
+
+    /* ── Process-Based ── */
+    'process-based-p-0': 'Una estructura basada en procesos organiza a los empleados alrededor de <strong>flujos de trabajo de extremo a extremo o cadenas de valor</strong> que entregan valor al cliente, en lugar de alrededor de departamentos funcionales o líneas de productos (Hammer &amp; Champy, 1993). La estructura alinea a los equipos con la secuencia completa de actividades requeridas para producir un resultado — desde la solicitud inicial del cliente hasta la entrega y el soporte. Los equipos son interfuncionales, reuniendo todas las habilidades necesarias dentro de un solo equipo de proceso. El liderazgo se orienta hacia la propiedad del proceso en lugar de la experiencia funcional.',
+    'process-based-s-0': '<strong>Centrada en el cliente</strong> — organizar alrededor de la entrega de valor de extremo a extremo mantiene el enfoque en la experiencia del cliente en lugar de métricas internas.',
+    'process-based-s-1': '<strong>Reducción de desperdicios por traspasos</strong> — colocar todas las capacidades necesarias dentro de un equipo de proceso elimina los retrasos y errores causados por pasar el trabajo entre departamentos.',
+    'process-based-s-2': '<strong>Tiempos de ciclo más rápidos</strong> — los flujos de trabajo optimizados acortan el tiempo desde el inicio hasta la finalización.',
+    'process-based-s-3': '<strong>Responsabilidad mejorada</strong> — los propietarios de procesos son responsables del rendimiento completo de la cadena de valor.',
+    'process-based-s-4': '<strong>Apoya la mejora continua</strong> — la visibilidad de extremo a extremo facilita la identificación y eliminación de desperdicios y cuellos de botella.',
+    'process-based-l-0': '<strong>Pérdida de profundidad funcional</strong> — los equipos interfuncionales pueden desarrollar amplitud a expensas de la profunda experiencia especializada.',
+    'process-based-l-1': '<strong>Difícil y disruptiva de implementar</strong> — la reingeniería de estructuras funcionales existentes requiere un cambio cultural y operativo importante.',
+    'process-based-l-2': '<strong>Requiere liderazgo fuerte</strong> — los propietarios de procesos deben tener amplia autoridad para gestionar a través de los límites funcionales tradicionales.',
+    'process-based-l-3': '<strong>Difícil de comparar</strong> — las métricas basadas en procesos están menos estandarizadas entre industrias que las métricas funcionales.',
+    'process-based-o-0': 'Mejor cuando la <strong>experiencia del cliente y la velocidad</strong> son los principales diferenciadores competitivos.',
+    'process-based-o-1': 'Altamente aplicable al <strong>flujo de pacientes en salud</strong> — organizar la prestación de atención clínica alrededor de jornadas de pacientes de extremo a extremo en lugar de líneas departamentales puede mejorar dramáticamente la calidad de la atención y reducir los tiempos de espera.',
+    'process-based-o-2': 'Apropiada para organizaciones que se someten a <strong>reingeniería de procesos de negocio</strong> para eliminar ineficiencia, redundancia y errores de traspaso.',
+
+    /* ── Circular ── */
+    'circular-p-0': 'La estructura circular es una reimaginación de la jerarquía tradicional en la que la autoridad se muestra como <strong>anillos concéntricos en lugar de una pirámide de arriba hacia abajo</strong>. Los líderes superiores ocupan el centro, con anillos sucesivos que se irradian hacia afuera representando niveles progresivamente más amplios de la organización (Mintzberg, 1979; Morgan, 2015). En lugar de implicar subordinación, el diseño simboliza que todos los roles contribuyen igualmente al límite exterior de la organización — su interfaz con clientes, comunidad y entorno. Todavía hay una jerarquía, pero su representación cultural cambia de una cadena de mando a un sistema de propósito compartido.',
+    'circular-s-0': '<strong>Promueve una cultura colaborativa</strong> — la eliminación visual de "arriba" y "abajo" reduce el comportamiento impulsado por el estatus y fomenta la contribución en todos los niveles.',
+    'circular-s-1': '<strong>Mejora el flujo de información</strong> — el modelo circular fomenta la comunicación tanto hacia adentro como hacia afuera a través de los anillos, no solo verticalmente.',
+    'circular-s-2': '<strong>Apoya el compromiso del empleado</strong> — los empleados se sienten menos como un engranaje en una máquina y más como un contribuyente valorado a la misión de la organización.',
+    'circular-s-3': '<strong>Mantiene la estabilidad</strong> — la responsabilidad jerárquica se preserva dentro de un marco culturalmente más plano y empoderador.',
+    'circular-l-0': '<strong>Principalmente un replanteamiento, no una reestructuración</strong> — sin cambios reales en la autoridad y los derechos de decisión, el diseño circular es cosmético.',
+    'circular-l-1': '<strong>Puede causar confusión</strong> — los empleados acostumbrados a una jerarquía vertical clara pueden encontrar el modelo ambiguo.',
+    'circular-l-2': '<strong>Más difícil de escalar</strong> — a medida que las organizaciones crecen, el modelo concéntrico se vuelve más difícil de representar significativamente.',
+    'circular-l-3': '<strong>No inherentemente funcional</strong> — el modelo describe la filosofía organizacional más que la mecánica operativa.',
+    'circular-o-0': 'Valiosa como una <strong>herramienta de gestión cultural y del cambio</strong> para organizaciones que transitan de jerarquías rígidas hacia modelos más colaborativos centrados en el paciente.',
+    'circular-o-1': 'Particularmente relevante en <strong>servicios de salud y públicos</strong> donde cambiar de una cultura de arriba hacia abajo a una que centra al paciente en el anillo exterior puede impulsar la transformación estratégica.',
+    'circular-o-2': 'Puede implementarse junto con estructuras existentes como un <strong>marco de comunicación y compromiso</strong> sin requerir una reestructuración completa.',
+
+    /* ── Network ── */
+    'network-p-0': 'Una estructura en red organiza la empresa como un <strong>pequeño centro de mando que subcontrata o se asocia con organizaciones externas</strong> para realizar la mayoría de sus funciones operativas (Miles &amp; Snow, 1986). La organización central retiene solo sus funciones más estratégicamente críticas — como diseño, gestión de marca o investigación — mientras contrata manufactura, logística, servicio al cliente y otras funciones a una red de firmas externas especializadas. Nike y Apple son ejemplos prominentes: ambos diseñan productos internamente pero subcontratan la manufactura. La estructura en red maximiza la flexibilidad y especialización mientras minimiza los costos fijos.',
+    'network-s-0': '<strong>Máxima flexibilidad</strong> — la organización puede escalar hacia arriba o abajo rápidamente ajustando contratos con socios en lugar de contratar o despedir personal.',
+    'network-s-1': '<strong>Acceso a capacidades de primer nivel</strong> — subcontratar a firmas especialistas ofrece mayor calidad en cada función que construir todas las capacidades internamente.',
+    'network-s-2': '<strong>Bajos costos fijos</strong> — infraestructura física mínima y plantilla resultan en gastos generales reducidos.',
+    'network-s-3': '<strong>Enfoque en competencias centrales</strong> — la organización puede invertir profundamente en lo que la diferencia mientras depende de socios para todo lo demás.',
+    'network-s-4': '<strong>Adaptación rápida</strong> — la red puede reconfigurarse rápidamente para responder a cambios del mercado o nuevas oportunidades.',
+    'network-l-0': '<strong>Pérdida de control</strong> — depender de socios externos para funciones críticas crea dependencia y reduce el control operativo directo.',
+    'network-l-1': '<strong>Riesgos de calidad y consistencia</strong> — el rendimiento de los socios puede variar y es más difícil de monitorear que las operaciones internas.',
+    'network-l-2': '<strong>Complejidad de coordinación</strong> — gestionar una red de relaciones externas requiere una gestión significativa de contratos y comunicación.',
+    'network-l-3': '<strong>Riesgo de fuga de conocimiento</strong> — la propiedad intelectual y los procesos propietarios pueden exponerse o replicarse por las firmas asociadas.',
+    'network-l-4': '<strong>Erosión de la cultura organizacional</strong> — con la mayor parte del trabajo realizado externamente, construir una identidad interna coherente y lealtad de empleados es difícil.',
+    'network-l-5': '<strong>Vulnerabilidad a disrupciones de la cadena de suministro</strong> — la dependencia de socios externos aumenta la exposición a fallos de proveedores, eventos geopolíticos o choques del mercado.',
+    'network-o-0': 'Mejor para organizaciones en <strong>industrias de cambio rápido e impulsadas por la innovación</strong> donde la flexibilidad y el acceso a experiencia externa son primordiales.',
+    'network-o-1': 'Cuando la <strong>ventaja competitiva central de la organización es el diseño, la marca o la propiedad intelectual</strong> en lugar de la ejecución operativa.',
+    'network-o-2': 'Las organizaciones de salud pueden aplicar el pensamiento en red creando <strong>asociaciones y afiliaciones</strong> con proveedores de atención especializados, vendedores de tecnología y organizaciones de salud comunitaria en lugar de internalizar todas las capacidades.'
+  };
+
+  /* ── Assign data-i18n keys to translatable elements ── */
+  function initI18n() {
+    /* Badge */
+    const badge = document.querySelector('.badge');
+    if (badge) badge.dataset.i18n = 'ui-badge';
+    /* Hero */
+    const heroTitle = document.querySelector('.hero h1');
+    if (heroTitle) heroTitle.dataset.i18n = 'ui-hero-title';
+    /* Hero meta — only translate indices 2 & 3 (course & prof) */
+    document.querySelectorAll('.hero-meta span').forEach((s, i) => {
+      if (i >= 2) s.dataset.i18n = 'hero-meta-' + i;
+    });
+    /* Sidebar heading */
+    const tocH2 = document.querySelector('.sidebar-header h2');
+    if (tocH2) tocH2.dataset.i18n = 'ui-contents';
+    const tocP = document.querySelector('.sidebar-header p');
+    if (tocP) tocP.dataset.i18n = 'ui-subtitle';
+    /* Nav group labels */
+    document.querySelectorAll('.nav-group-label').forEach((l, i) => {
+      l.dataset.i18n = 'nav-g-' + i;
+    });
+    /* Nav links */
+    document.querySelectorAll('#toc a').forEach((a, i) => {
+      a.dataset.i18n = 'nav-' + i;
+    });
+    /* Tab buttons — shared patterns */
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      const txt = btn.textContent;
+      if (txt.includes('Strengths'))      btn.dataset.i18n = 'tab-strengths';
+      else if (txt.includes('Limitations')) btn.dataset.i18n = 'tab-limitations';
+      else if (txt.includes('Opportunities')) btn.dataset.i18n = 'tab-opportunities';
+    });
+    /* Sections */
+    document.querySelectorAll('.section').forEach(section => {
+      const id = section.id;
+      /* Title */
+      const title = section.querySelector('.section-title');
+      if (title) title.dataset.i18n = 'title-' + id;
+      /* Card paragraphs — select direct children: p, p.card-lead */
+      let pIdx = 0;
+      section.querySelectorAll('.card > p, .card > .card-lead').forEach(p => {
+        p.dataset.i18n = id + '-p-' + pIdx++;
+      });
+      /* Sub-section titles */
+      section.querySelectorAll('.sub-title').forEach((st, i) => {
+        st.dataset.i18n = id + '-sub-' + i;
+      });
+      /* Sub-section body paragraphs */
+      section.querySelectorAll('.sub-body p').forEach((p, i) => {
+        p.dataset.i18n = id + '-sub-p-' + i;
+      });
+      /* Strength bullets */
+      section.querySelectorAll('.strength-box li').forEach((li, i) => {
+        li.dataset.i18n = id + '-s-' + i;
+      });
+      /* Limitation bullets */
+      section.querySelectorAll('.limitation-box li').forEach((li, i) => {
+        li.dataset.i18n = id + '-l-' + i;
+      });
+      /* Opportunity paragraphs and bullets */
+      const oppBox = section.querySelector('.opportunity-box');
+      if (oppBox) {
+        /* Single paragraph opportunities */
+        oppBox.querySelectorAll(':scope > p').forEach((p, i) => {
+          p.dataset.i18n = id + '-o-' + i;
+        });
+        oppBox.querySelectorAll(':scope li').forEach((li, i) => {
+          /* Offset by number of <p> siblings already keyed */
+          const pCount = oppBox.querySelectorAll(':scope > p').length;
+          li.dataset.i18n = id + '-o-' + (pCount + i);
+        });
+      }
+      /* Diagram captions */
+      section.querySelectorAll('.diagram-caption').forEach(() => {
+        /* Use section-based key */
+        section.querySelectorAll('.diagram-caption').forEach(dc => {
+          dc.dataset.i18n = 'cap-' + id;
+        });
+      });
+    });
+    /* Seven propositions — special: ordered list items */
+    const propsOl = document.querySelector('#seven-props .propositions ol');
+    if (propsOl) {
+      propsOl.querySelectorAll('li').forEach((li, i) => {
+        li.dataset.i18n = 'seven-props-p-' + i;
+      });
+    }
+    /* When-table special elements */
+    const whenSection = document.getElementById('when-table');
+    if (whenSection) {
+      const label = whenSection.querySelector('.section-body > p');
+      if (label) label.dataset.i18n = 'when-table-label';
+      whenSection.querySelectorAll('th').forEach((th, i) => {
+        th.dataset.i18n = 'when-table-th-' + i;
+      });
+      whenSection.querySelectorAll('td').forEach((td, i) => {
+        td.dataset.i18n = 'when-table-td-' + i;
+      });
+    }
+  }
+
+  /* ── Toggle language ── */
+  function toggleLang() {
+    const toLang = currentLang === 'en' ? 'es' : 'en';
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.dataset.i18n;
+      if (toLang === 'es') {
+        /* Store original English */
+        if (!el.dataset.origEn) el.dataset.origEn = el.innerHTML;
+        if (es[key]) el.innerHTML = es[key];
+      } else {
+        /* Restore English */
+        if (el.dataset.origEn !== undefined) el.innerHTML = el.dataset.origEn;
+      }
+    });
+    /* Update Collapse/Expand buttons */
+    document.querySelectorAll('.toggle-btn').forEach(btn => {
+      if (toLang === 'es') {
+        if (btn.textContent === 'Collapse') btn.textContent = 'Contraer';
+        else if (btn.textContent === 'Expand') btn.textContent = 'Expandir';
+      } else {
+        if (btn.textContent === 'Contraer') btn.textContent = 'Collapse';
+        else if (btn.textContent === 'Expandir') btn.textContent = 'Expand';
+      }
+    });
+    /* Update toggle button */
+    document.getElementById('lang-toggle').textContent = toLang === 'es' ? 'EN' : 'ES';
+    /* Set html lang attribute */
+    document.documentElement.lang = toLang;
+    currentLang = toLang;
+  }
+
+  /* Init i18n keys on page load */
+  initI18n();
 </script>
 </body>
 </html>
